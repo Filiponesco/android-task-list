@@ -9,44 +9,44 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class TaskListAdapter (var users: MutableList<Task>, val context: Context): RecyclerView.Adapter<TaskListAdapter.ViewHolder>(){
+class TaskListAdapter (var tasks: MutableList<Task>, val context: Context): RecyclerView.Adapter<TaskListAdapter.ViewHolder>(){
 
     //jest wykonywana, gdy nie ma jeszcze odpowiedniej ilości obiektów ViewHolder
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.task_row, parent, false)
-        view.setOnClickListener{
-            //nowa aktywnosc umożliwia podgląd zadania i może nawet edycję
-            val intent = Intent(context, OneTaskActivity::class.java).apply {
-                //putExtra("id",view.txt?.text)
-            }
-            context.startActivity(intent)
-        }
         return ViewHolder(view)
     }
     override fun getItemCount(): Int {
-        return users.size
+        return tasks.size
     }
     fun setCrimes(usersUpdate: MutableList<Task> ){
-        users = usersUpdate
+        tasks = usersUpdate
     }
     //wywołuje się zawsze (Recykling starych obiektów)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        var user = users[position]
+        var task = tasks[position]
         //ustawia wartosc textBox'ow w user_row.xml
-        holder.bind(user)
-        //ustawienie nasłuchiwanie kliknięcia przycisków )
+        holder.bind(task)
+        //ustawienie nasłuchiwanie kliknięcia w zadanie
+        holder.itemView.setOnClickListener{
+            val intent = Intent(context, OneTaskActivity::class.java).apply {
+                putExtra("id", task.id.toString())
+            }
+            context.startActivity(intent)
+        }
     }
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
 
         //zwraca id textBox'ów w user_row.xml wraz z jego zawartością
         private val title = itemView.findViewById<TextView?>(R.id.txtViewTitle)
         private val priority = itemView.findViewById<TextView?>(R.id.txtViewPriority)
-        private val state = itemView.findViewById<Button>(R.id.txtViewState)
-        private val date = itemView.findViewById<Button>(R.id.txtViewDate)
+        private val state = itemView.findViewById<TextView?>(R.id.txtViewState)
+        private val date = itemView.findViewById<TextView?>(R.id.txtViewDate)
         fun bind(task: Task){
-            title?.text = task.id.toString()
+            title?.text = task.title
             priority?.text = task.priority
-            state?.text = task.state
+            if(task.state == 1) state?.text = "Zrobione"
+            else state?.text = "Nie zrobione"
             date?.text = task.date
         }
     }

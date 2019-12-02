@@ -50,18 +50,23 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) : SQLit
         var rawQuery = db.rawQuery("SELECT * FROM $TABLE_NAME", null)
         return TaskCursorWrapper(rawQuery)
     }
+    private fun queryTasksOrderByPriority(): TaskCursorWrapper {
+        val db = this.readableDatabase
+        var rawQuery = db.rawQuery("SELECT * FROM $TABLE_NAME ORDER BY $COLUMN_PRIORITY", null)
+        return TaskCursorWrapper(rawQuery)
+    }
     private fun queryTask(id: Int): TaskCursorWrapper{
         val db = this.readableDatabase
         var rawQuery = db.rawQuery("SELECT * FROM $TABLE_NAME WHERE $COLUMN_ID = $id", null)
         return TaskCursorWrapper(rawQuery)
     }
-    fun getAllUsers(): MutableList<Task>{
+    fun getAllTasks(): MutableList<Task>{
         var cursor = queryTasks()
-        var users = mutableListOf<Task>()
+        var tasks = mutableListOf<Task>()
         try{
             cursor.moveToFirst()
             while(!cursor.isAfterLast){
-                users.add(cursor.getTask())
+                tasks.add(cursor.getTask())
                 cursor.moveToNext()
             }
         } catch(e: Exception){
@@ -70,9 +75,26 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) : SQLit
         finally{
             cursor.close()
         }
-        return users
+        return tasks
     }
-    fun getUser(id: Int): Task?{
+    fun getAllTasksOrderByPriority(): MutableList<Task>{
+        var cursor = queryTasksOrderByPriority()
+        var tasks = mutableListOf<Task>()
+        try{
+            cursor.moveToFirst()
+            while(!cursor.isAfterLast){
+                tasks.add(cursor.getTask())
+                cursor.moveToNext()
+            }
+        } catch(e: Exception){
+            //
+        }
+        finally{
+            cursor.close()
+        }
+        return tasks
+    }
+    fun getTask(id: Int): Task?{
         var cursor = queryTask(id)
         try{
             if(cursor.count == 0)

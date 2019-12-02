@@ -3,4 +3,14 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="add_task_title">Tytuł</string>
+    <string name="add_task_priority">Priorytet</string>
+    <string name="add_task_date">Data</string>
+    <string name="btn_add">Dodaj</string>
+    <string name="btn_cancel">Anuluj</string>
+    <string name="chkBox_state">Zrobione</string>
+    <string name="priority1">Duży</string>
+    <string name="priority2">Średni</string>
+    <string name="priority3">Mały</string>
+    <string name="lblPriority">Priorytet</string>
 </resources>
