@@ -1,5 +1,6 @@
 package com.example.listtodo
 
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -44,7 +45,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         //otwarcie fragmentu w ktorym są dwa przyciski dodaj i anuluj
-        Toast.makeText(this, "Dodaj", Toast.LENGTH_SHORT).show()
         tasksRecyclerView.visibility = View.INVISIBLE
         var fm = supportFragmentManager
         var fragment = fm.findFragmentById(R.id.fragment_container)

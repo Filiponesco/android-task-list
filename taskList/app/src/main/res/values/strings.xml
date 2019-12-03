@@ -10,7 +10,7 @@
     <string name="btn_cancel">Anuluj</string>
     <string name="chkBox_state">Zrobione</string>
     <string name="priority1">Wysoki</string>
-    <string name="priority2">Średni</string>
+    <string name="priority2">Sredni</string>
     <string name="priority3">Mały</string>
     <string name="lblTitle">Tytuł: </string>
     <string name="lblDate">Data: </string>

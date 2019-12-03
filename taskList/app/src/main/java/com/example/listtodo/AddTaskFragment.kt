@@ -7,10 +7,9 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
 import android.app.DatePickerDialog
+import android.graphics.Color
 import java.util.*
 import android.widget.DatePicker
-
-
 
 
 //kontroler, ktory wspolpracuje z obiketami warstwy i modelu
@@ -56,6 +55,8 @@ class AddTaskFragment: Fragment(), DatePickerDialog.OnDateSetListener {
             Toast.makeText(context, "Dodano", Toast.LENGTH_SHORT).show()
         }
         btnCancel.setOnClickListener {
+            //activity?.supportFragmentManager?.beginTransaction()?.remove(this)?.commit()
+            activity?.onBackPressed()
             Toast.makeText(context, "Anulowano", Toast.LENGTH_SHORT).show()
         }
         btnSelectDate.setOnClickListener {

@@ -52,7 +52,7 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) : SQLit
     }
     private fun queryTasksOrderByPriority(): TaskCursorWrapper {
         val db = this.readableDatabase
-        var rawQuery = db.rawQuery("SELECT * FROM $TABLE_NAME ORDER BY $COLUMN_PRIORITY", null)
+        var rawQuery = db.rawQuery("SELECT * FROM $TABLE_NAME ORDER BY $COLUMN_PRIORITY DESC", null)
         return TaskCursorWrapper(rawQuery)
     }
     private fun queryTask(id: Int): TaskCursorWrapper{
