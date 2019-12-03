@@ -6,20 +6,23 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.SortedList
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_edit_task.*
-import javax.security.auth.callback.Callback
+import android.app.DatePickerDialog
+import java.util.*
+import android.widget.DatePicker
+
+
+
 
 //kontroler, ktory wspolpracuje z obiketami warstwy i modelu
-class AddTaskFragment: Fragment() {
+class AddTaskFragment: Fragment(), DatePickerDialog.OnDateSetListener {
     lateinit var newTask: Task
     lateinit var txtTitle: EditText
     lateinit var groupPriority: RadioGroup
-    lateinit var txtDate: EditText
+    lateinit var txtDate: TextView
     lateinit var chkBoxDone: CheckBox
     lateinit var btnAdd: Button
     lateinit var btnCancel: Button
+    lateinit var btnSelectDate: Button
     lateinit var db: DBHelper
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,11 +38,11 @@ class AddTaskFragment: Fragment() {
         val v = inflater.inflate(R.layout.fragment_edit_task, container, false)
         txtTitle = v.findViewById(R.id.editTxtTitle)
         groupPriority = v.findViewById(R.id.rdGPriority)
-        txtDate = v.findViewById(R.id.editTxtDate)
+        txtDate = v.findViewById(R.id.txtViewDate)
         chkBoxDone = v.findViewById(R.id.checkBox)
         btnAdd = v.findViewById(R.id.btnAdd)
         btnCancel = v.findViewById(R.id.btnCancel)
-
+        btnSelectDate = v.findViewById(R.id.btnSelectDate)
 
         btnAdd.setOnClickListener {
             db = DBHelper(v.context, null)
@@ -55,6 +58,23 @@ class AddTaskFragment: Fragment() {
         btnCancel.setOnClickListener {
             Toast.makeText(context, "Anulowano", Toast.LENGTH_SHORT).show()
         }
+        btnSelectDate.setOnClickListener {
+            showDatePickerDialog(v)
+        }
         return v
+    }
+    fun showDatePickerDialog(view: View) {
+        val datePickerDialog = DatePickerDialog(
+            view.context,
+            this,
+            Calendar.getInstance().get(Calendar.YEAR),
+            Calendar.getInstance().get(Calendar.MONTH),
+            Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
+        )
+        datePickerDialog.show()
+    }
+    override fun onDateSet(view: DatePicker, year: Int, month: Int, dayOfMonth: Int) {
+        val date = "$dayOfMonth.$month.$year"
+        txtDate.text = date
     }
 }

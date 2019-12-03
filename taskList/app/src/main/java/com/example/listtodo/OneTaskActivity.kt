@@ -24,5 +24,9 @@ class OneTaskActivity : AppCompatActivity() {
             else task?.state = 0
             db.update(task)
         }
+        btnDelete.setOnClickListener {
+            db.delete(task)
+            finish()
+        }
     }
 }

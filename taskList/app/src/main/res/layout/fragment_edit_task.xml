@@ -51,13 +51,26 @@
                 android:text="@string/priority1" />
         </RadioGroup>
 
-        <EditText
-            android:id="@+id/editTxtDate"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/add_task_date"
-            android:inputType="textPersonName" />
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/txtViewDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/add_task_date"
+                android:layout_weight="1"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/btnSelectDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/btn_selectDate" />
+        </LinearLayout>
 
         <CheckBox
             android:id="@+id/checkBox"
