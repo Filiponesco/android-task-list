@@ -9,7 +9,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class TaskListAdapter (var tasks: MutableList<Task>, val context: Context): RecyclerView.Adapter<TaskListAdapter.ViewHolder>(){
+class TaskListAdapter (var tasks: MutableList<Task>, val context: Context): RecyclerView.Adapter<TaskListAdapter.ViewHolder>() {
 
     //jest wykonywana, gdy nie ma jeszcze odpowiedniej ilości obiektów ViewHolder
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -35,7 +35,8 @@ class TaskListAdapter (var tasks: MutableList<Task>, val context: Context): Recy
             context.startActivity(intent)
         }
     }
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         //zwraca id textBox'ów w user_row.xml wraz z jego zawartością
         private val title = itemView.findViewById<TextView?>(R.id.txtViewTitle)

@@ -23,9 +23,6 @@ class AddTaskFragment: Fragment(), DatePickerDialog.OnDateSetListener {
     lateinit var btnCancel: Button
     lateinit var btnSelectDate: Button
     lateinit var db: DBHelper
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
     //OnCreateView - bardzo ważna funkcja, rozwija widok fragmentu poprzez wywołanie metody LayoutInflater.inflate(...)
     // i przekazanie do niej odpowiedniego identyfikatora pliku układu.
     //Drugim parametrem jest widok nadrzędny, który zazwyczaj jest niezbędny do prawidłowego skonf. widgetów
@@ -55,8 +52,8 @@ class AddTaskFragment: Fragment(), DatePickerDialog.OnDateSetListener {
             Toast.makeText(context, "Dodano", Toast.LENGTH_SHORT).show()
         }
         btnCancel.setOnClickListener {
-            //activity?.supportFragmentManager?.beginTransaction()?.remove(this)?.commit()
-            activity?.onBackPressed()
+            var fragmentList = ListTasksFragment()
+            activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.fragment_container, fragmentList)?.commit()
             Toast.makeText(context, "Anulowano", Toast.LENGTH_SHORT).show()
         }
         btnSelectDate.setOnClickListener {

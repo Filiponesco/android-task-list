@@ -26,6 +26,7 @@ class OneTaskActivity : AppCompatActivity() {
         }
         btnDelete.setOnClickListener {
             db.delete(task)
+
             finish()
         }
     }

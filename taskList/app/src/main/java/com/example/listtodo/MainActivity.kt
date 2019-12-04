@@ -23,19 +23,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        //sprawdzam czy był otwarty fragment, aby po obrocie ekranu nie wyswietlil sie RecyclerView
-        if(savedInstanceState != null && savedInstanceState.getBoolean("fragmentOpen")){
-            tasksRecyclerView.visibility = View.INVISIBLE
-        }
         updateUI()
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        var fm = supportFragmentManager
-        var fragment = fm.findFragmentById(R.id.fragment_container)
-        if(fragment != null) outState.putBoolean("fragmentOpen", true)
-        else outState.putBoolean("fragmentOpen", false)
-        super.onSaveInstanceState(outState)
     }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater = menuInflater
@@ -44,39 +32,24 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        //otwarcie fragmentu w ktorym są dwa przyciski dodaj i anuluj
-        tasksRecyclerView.visibility = View.INVISIBLE
+        //podmiana fragmentu w ktorym są dwa przyciski dodaj i anuluj
         var fm = supportFragmentManager
-        var fragment = fm.findFragmentById(R.id.fragment_container)
-        if(fragment == null){
-            fragment = AddTaskFragment()
-            fm.beginTransaction().add(R.id.fragment_container, fragment).commit()
-        }
+        var fragmentAddTask = AddTaskFragment()
+        fm.beginTransaction().replace(R.id.fragment_container, fragmentAddTask).commit()
         return true
     }
     fun updateUI(){
-
-        var dbHandler = DBHelper(this, null)
-        tasksRecyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL,false) //co to robi?
-        val adapter = TaskListAdapter(dbHandler.getAllTasksOrderByPriority(), this)
-        tasksRecyclerView.adapter = adapter
+        var fm = supportFragmentManager
+        var fragment = fm.findFragmentById(R.id.fragment_container)
+        if(fragment == null){
+            fragment = ListTasksFragment()
+            fm.beginTransaction().add(R.id.fragment_container, fragment).commit()
+        }
     }
 
     override fun onResume() {
         super.onResume()
-        updateUI()
-    }
-
-    override fun onBackPressed() {
-        var fm = supportFragmentManager
-        var fragment = fm.findFragmentById(R.id.fragment_container)
-        if(fragment != null){
-            fm.beginTransaction().remove(fragment).commit()
-            tasksRecyclerView.visibility = View.VISIBLE
-        }
-        else{
-            super.onBackPressed()
-        }
+        Toast.makeText(this, "RESUME", Toast.LENGTH_SHORT).show()
         updateUI()
     }
 }
