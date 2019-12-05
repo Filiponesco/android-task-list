@@ -11,6 +11,9 @@ class OneTaskActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_one_task)
+
+        //val position: Int = intent.getStringExtra("position").toInt()
+
         val taskId: Int = intent.getStringExtra("id").toInt()
         val db = DBHelper(this, null)
         val task = db.getTask(taskId)
@@ -21,12 +24,14 @@ class OneTaskActivity : AppCompatActivity() {
 
         btnDelete.setOnClickListener {
             db.delete(task)
+            //ListTasksFragment.positionRemove = position //dopiero teraz przypisuje mu wartość, aby wiedzieć że coś zostało usunięte
             finish()
         }
         btnSave.setOnClickListener {
             if(chkBox.isChecked) task?.state = 1
             else task?.state = 0
             db.update(task)
+            //ListTasksFragment.positionUpdate = position
             finish()
         }
     }

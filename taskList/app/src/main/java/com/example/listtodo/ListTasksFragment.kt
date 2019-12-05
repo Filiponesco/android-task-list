@@ -32,7 +32,18 @@ class ListTasksFragment: Fragment() {
         var dbHandler = DBHelper(context!!, null)
         //adapter = TaskListAdapter(dbHandler.getAllTasksOrderByPriority(), context!!) //czym to się różni od tego na dole?
         adapter.setTaskList(dbHandler.getAllTasksOrderByPriority()) //bo to u góry tworzy nową klasę i nie wie, że coś się zmieniło
-        adapter.notifyDataSetChanged()
-        //adapter.notifyItemRemoved(2)
+        /*  when{
+            positionRemove != -1 -> adapter.notifyItemRemoved(positionRemove)
+            positionUpdate != -1 -> adapter.notifyItemChanged(positionUpdate)
+            //else -> adapter.notifyDataSetChanged()
+        }*/
+        //po tym pozycje ViewHOlderó będą aktualne
+        adapter.notifyDataSetChanged() //czasami wykona się dwa razy, bo RecyclerView przy usuwaniu nie odejmuje pozycji ViewHolderów
+        /*positionRemove = -1
+        positionUpdate = -1*/
     }
+    /*companion object{
+        var positionRemove = -1 //pozycja usunięta z RecyclerView
+        var positionUpdate = -1 //pozycja zaktualizowana z RecyclerView
+    }*/
 }

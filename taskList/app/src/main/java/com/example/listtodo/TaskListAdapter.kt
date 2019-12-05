@@ -31,6 +31,7 @@ class TaskListAdapter (var tasks: MutableList<Task>, val context: Context): Recy
         holder.itemView.setOnClickListener{
             val intent = Intent(context, OneTaskActivity::class.java).apply {
                 putExtra("id", task.id.toString())
+                //putExtra("position", position.toString()) //pozycja na liście RecyclerView liczymy od 0
             }
             context.startActivity(intent)
         }
