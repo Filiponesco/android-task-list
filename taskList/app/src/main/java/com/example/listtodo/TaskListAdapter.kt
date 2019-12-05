@@ -19,8 +19,8 @@ class TaskListAdapter (var tasks: MutableList<Task>, val context: Context): Recy
     override fun getItemCount(): Int {
         return tasks.size
     }
-    fun setCrimes(usersUpdate: MutableList<Task> ){
-        tasks = usersUpdate
+    fun setTaskList(tasksUpdate: MutableList<Task> ){
+        tasks = tasksUpdate
     }
     //wywołuje się zawsze (Recykling starych obiektów)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

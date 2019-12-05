@@ -19,14 +19,14 @@ class OneTaskActivity : AppCompatActivity() {
         txtViewDate.text = task?.date
         chkBox.isChecked = task?.state == 1 //if
 
-        chkBox.setOnClickListener{
+        btnDelete.setOnClickListener {
+            db.delete(task)
+            finish()
+        }
+        btnSave.setOnClickListener {
             if(chkBox.isChecked) task?.state = 1
             else task?.state = 0
             db.update(task)
-        }
-        btnDelete.setOnClickListener {
-            db.delete(task)
-
             finish()
         }
     }

@@ -46,10 +46,4 @@ class MainActivity : AppCompatActivity() {
             fm.beginTransaction().add(R.id.fragment_container, fragment).commit()
         }
     }
-
-    override fun onResume() {
-        super.onResume()
-        Toast.makeText(this, "RESUME", Toast.LENGTH_SHORT).show()
-        updateUI()
-    }
 }

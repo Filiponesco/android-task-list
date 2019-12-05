@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 class ListTasksFragment: Fragment() {
+    lateinit var adapter: TaskListAdapter
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -24,8 +25,16 @@ class ListTasksFragment: Fragment() {
         val recyclerView = v.findViewById<RecyclerView>(R.id.tasksRecyclerView)
         var dbHandler = DBHelper(v.context, null)
         recyclerView?.layoutManager = LinearLayoutManager(v.context, RecyclerView.VERTICAL,false) //co to robi?
-        val adapter = TaskListAdapter(dbHandler.getAllTasksOrderByPriority(), v.context)
+        adapter = TaskListAdapter(dbHandler.getAllTasksOrderByPriority(), v.context)
         recyclerView?.adapter = adapter
-        //adapter.notifyDataSetChanged()
+    }
+    override fun onResume() {
+        super.onResume()
+        Toast.makeText(context, "ON RES Fragm", Toast.LENGTH_SHORT).show()
+        var dbHandler = DBHelper(context!!, null)
+        //adapter = TaskListAdapter(dbHandler.getAllTasksOrderByPriority(), context!!) //czym to się różni od tego na dole?
+        adapter.setTaskList(dbHandler.getAllTasksOrderByPriority()) //bo to u góry tworzy nową klasę i nie wie, że coś się zmieniło
+        adapter.notifyDataSetChanged()
+        //adapter.notifyItemRemoved(2)
     }
 }

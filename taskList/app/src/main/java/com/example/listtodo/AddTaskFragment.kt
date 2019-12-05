@@ -50,6 +50,8 @@ class AddTaskFragment: Fragment(), DatePickerDialog.OnDateSetListener {
             newTask = Task(txtTitle.text.toString(), priority, isDone, txtDate.text.toString(), null)
             db.addTask(newTask)
             Toast.makeText(context, "Dodano", Toast.LENGTH_SHORT).show()
+            var fragmentList = ListTasksFragment()
+            activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.fragment_container, fragmentList)?.commit()
         }
         btnCancel.setOnClickListener {
             var fragmentList = ListTasksFragment()

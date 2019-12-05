@@ -17,4 +17,5 @@
     <string name="lblPriority">Priorytet: </string>
     <string name="btn_delete">Usuń</string>
     <string name="btn_selectDate">Wybierz Datę</string>
+    <string name="btn_save">Zapisz</string>
 </resources>
