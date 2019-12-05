@@ -18,7 +18,6 @@ class ListTasksFragment: Fragment() {
     ): View? {
         val v = inflater.inflate(R.layout.fragment_list_tasks, container, false)
         loadDataToRecyclerView(v)
-        Toast.makeText(v.context, "fragment", Toast.LENGTH_SHORT).show()
         return v
     }
     fun loadDataToRecyclerView(v:View){
@@ -30,7 +29,6 @@ class ListTasksFragment: Fragment() {
     }
     override fun onResume() {
         super.onResume()
-        Toast.makeText(context, "ON RES Fragm", Toast.LENGTH_SHORT).show()
         var dbHandler = DBHelper(context!!, null)
         //adapter = TaskListAdapter(dbHandler.getAllTasksOrderByPriority(), context!!) //czym to się różni od tego na dole?
         adapter.setTaskList(dbHandler.getAllTasksOrderByPriority()) //bo to u góry tworzy nową klasę i nie wie, że coś się zmieniło
